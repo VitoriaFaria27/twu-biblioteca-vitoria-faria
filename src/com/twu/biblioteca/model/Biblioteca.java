@@ -10,18 +10,22 @@ public class Biblioteca {
         this.books = books;
     }
 
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
     public String getWelcomeMessage(){
         return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
 
     public String listBookNames() {
 
-        String message = "";
+        StringBuilder message = new StringBuilder();
 
         for(Book book : books){
-            message += (book.getName() + "\n");
+            message.append(book.getInfo());
         }
 
-        return message;
+        return message.toString();
     }
 }

@@ -20,16 +20,16 @@ public class BibliotecaTest {
     @Before
     public void setup(){
 
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
 
-        books.add(new Book("Odisseia"));
-        books.add(new Book("Sofocles"));
+        books.add(new Book("Odisseia", "foo", 1993));
+        books.add(new Book("Sofocles", "bar", 1997));
 
         biblioteca = new Biblioteca(books);
     }
 
     @Test
-    public void welcomeMessageWorks() {
+    public void welcomeMessageWorks () {
 
         String message = biblioteca.getWelcomeMessage();
 
@@ -37,10 +37,32 @@ public class BibliotecaTest {
     }
 
     @Test
+    public void bookListIsFilled () {
+        List<Book> books = biblioteca.getBooks();
+
+        assertThat(books.size(), is(2));
+    }
+
+    @Test
+    public void bookListHasRightContent () {
+        List<Book> books = biblioteca.getBooks();
+
+        assertThat(books.get(0).getName(), is("Odisseia"));
+    }
+
+    @Test
     public void bibliotecaCanlistBooks () {
 
         String books = biblioteca.listBookNames();
 
-        assertThat(books, is("Odisseia\nSofocles\n"));
+        assertThat(books, is("Odisseia\tfoo\t1993\nSofocles\tbar\t1997\n"));
+    }
+
+    @Test
+    public void bookCanReturnInfo (){
+
+        Book book = biblioteca.getBooks().get(0);
+
+        assertThat(book.getInfo(), is("Odisseia\tfoo\t1993\n"));
     }
 }
