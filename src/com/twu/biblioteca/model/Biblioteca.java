@@ -4,7 +4,10 @@ import java.util.List;
 
 public class Biblioteca {
 
-    private final String LIST_OF_BOOKS = "List of books";
+    private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+    private static final String LIST_HEADER = "Name\tAuthor\tYear\n";
+    private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
+    private static final String LIST_OF_BOOKS = "List of books";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -16,14 +19,14 @@ public class Biblioteca {
     }
 
     public String getWelcomeMessage(){
-        return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+        return WELCOME_MESSAGE;
     }
 
     public String listBooksInfo() {
 
         StringBuilder message = new StringBuilder();
 
-        message.append("Name\tAuthor\tYear\n");
+        message.append(LIST_HEADER);
 
         for(Book book : books){
             message.append(book.getInfo());
@@ -38,7 +41,7 @@ public class Biblioteca {
             return listBooksInfo();
         }
 
-        else return null;
+        else return INVALID_OPTION_MESSAGE;
     }
 
     public String getMenu() {

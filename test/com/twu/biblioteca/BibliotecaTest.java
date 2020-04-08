@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class BibliotecaTest {
 
-    public static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
+    private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
     Biblioteca biblioteca;
 
     @Before
@@ -76,10 +76,18 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldreturnMenu() {
+    public void shouldReturnMenu() {
 
         String menu = biblioteca.getMenu();
 
         assertThat(menu , is("List of books"));
+    }
+
+    @Test
+    public void invalidCommandShouldReturnMessage() {
+
+        String outputForUser = biblioteca.getOutputFromCommand("foo");
+
+        assertThat(outputForUser, is("Please select a valid option!"));
     }
 }
