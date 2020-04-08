@@ -33,7 +33,7 @@ public class BibliotecaApp {
         try (Scanner scanner = new Scanner(System.in)) {
             while (!shouldQuit){
 
-                System.out.println("Please enter a command from the following menu:\n");
+                System.out.println("Please enter a command from the following menu:");
                 System.out.println(biblioteca.getMenu());
 
                 String command = scanner.nextLine();
@@ -41,7 +41,7 @@ public class BibliotecaApp {
                 shouldQuit = biblioteca.shouldQuit(command);
 
                 if(!shouldQuit){
-                    System.out.println(biblioteca.getOutputFromCommand(command));
+                    System.out.println(biblioteca.runUserCommand(command));
                 }
 
             }

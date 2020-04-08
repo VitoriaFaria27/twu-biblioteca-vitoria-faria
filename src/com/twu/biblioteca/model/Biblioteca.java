@@ -9,6 +9,8 @@ public class Biblioteca {
     private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
     private static final String LIST_OF_BOOKS = "List of books";
     private static final String QUIT = "Quit";
+    private static final String CHECKOUT = "Checkout";
+    private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -36,20 +38,33 @@ public class Biblioteca {
         return message.toString();
     }
 
-    public String getOutputFromCommand(String command) {
+    public String runUserCommand(String command) {
 
         if (LIST_OF_BOOKS.equals(command)){
             return listBooksInfo();
+        }
+
+        if (command.contains(" ") && command.split(" ")[0].equals(CHECKOUT)){
+
+            String bookName = command.split(" ")[1];
+            Book book = this.findBookByName(bookName);
+            book.checkOut();
+
+            return ENJOY_THE_BOOK;
         }
 
         else return INVALID_OPTION_MESSAGE;
     }
 
     public String getMenu() {
-        return LIST_OF_BOOKS + "\t" +QUIT;
+        return LIST_OF_BOOKS + "\t" + CHECKOUT + "\t" + QUIT;
     }
 
     public boolean shouldQuit(String command) {
         return QUIT.equals(command);
+    }
+
+    public Book findBookByName(String name) {
+        return books.stream().filter(book -> name.equals(book.getName())).findFirst().orElse(null);
     }
 }

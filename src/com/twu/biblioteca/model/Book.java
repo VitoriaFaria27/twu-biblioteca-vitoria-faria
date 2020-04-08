@@ -5,11 +5,13 @@ public class Book {
     private String name;
     private String author;
     private int year;
+    private boolean checkedOut;
 
     public Book(String name, String author, int year) {
         this.name = name;
         this.author = author;
         this.year = year;
+        this.checkedOut = false;
     }
 
     public String getName() {
@@ -17,6 +19,13 @@ public class Book {
     }
 
     public Object getInfo() {
+        if(this.checkedOut){
+            return "";
+        }
         return this.name + "\t" + this.author + "\t" + this.year + "\n";
+    }
+
+    public void checkOut() {
+        this.checkedOut = true;
     }
 }

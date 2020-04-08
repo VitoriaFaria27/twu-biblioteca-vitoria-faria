@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 public class BibliotecaTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
+    private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
     Biblioteca biblioteca;
 
     @Before
@@ -69,7 +70,7 @@ public class BibliotecaTest {
     @Test
     public void commandShouldReturnListOfBooks() {
 
-        String outputForUser = biblioteca.getOutputFromCommand("List of books");
+        String outputForUser = biblioteca.runUserCommand("List of books");
 
         assertThat(outputForUser, is(LIST_OF_BOOKS_INFO));
     }
@@ -79,13 +80,13 @@ public class BibliotecaTest {
 
         String menu = biblioteca.getMenu();
 
-        assertThat(menu , is("List of books\tQuit"));
+        assertThat(menu , is("List of books\tCheckout\tQuit"));
     }
 
     @Test
     public void invalidCommandShouldReturnMessage() {
 
-        String outputForUser = biblioteca.getOutputFromCommand("foo");
+        String outputForUser = biblioteca.runUserCommand("foo");
 
         assertThat(outputForUser, is("Please select a valid option!"));
     }
@@ -104,5 +105,28 @@ public class BibliotecaTest {
         boolean shouldNotQuit = biblioteca.shouldQuit("foo");
 
         assertFalse(shouldNotQuit);
+    }
+
+    @Test
+    public void checkedOutBookIsNotListedAnymore() {
+        biblioteca.runUserCommand("Checkout Odisseia");
+
+        assertThat(biblioteca.listBooksInfo(), is("Name\tAuthor\tYear\nSofocles\tbar\t1997\n"));
+    }
+
+    @Test
+    public void findBookByName() {
+
+        Book book = biblioteca.findBookByName("Odisseia");
+
+        assertThat(book.getName(), is("Odisseia"));
+    }
+
+    @Test
+    public void checkOutCommandShouldReturnMessage() {
+
+        String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
+
+        assertThat(outputForUser, is(ENJOY_THE_BOOK));
     }
 }
