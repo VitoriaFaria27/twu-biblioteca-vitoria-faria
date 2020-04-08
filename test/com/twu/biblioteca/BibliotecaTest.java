@@ -9,9 +9,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
 
 public class BibliotecaTest {
 
@@ -80,7 +79,7 @@ public class BibliotecaTest {
 
         String menu = biblioteca.getMenu();
 
-        assertThat(menu , is("List of books"));
+        assertThat(menu , is("List of books\tQuit"));
     }
 
     @Test
@@ -89,5 +88,21 @@ public class BibliotecaTest {
         String outputForUser = biblioteca.getOutputFromCommand("foo");
 
         assertThat(outputForUser, is("Please select a valid option!"));
+    }
+
+    @Test
+    public void shouldQuitIfQuitMessageIsProvided() {
+
+        boolean shouldQuit = biblioteca.shouldQuit("Quit");
+
+        assertTrue(shouldQuit);
+    }
+
+    @Test
+    public void shouldNotQuitIfQuitMessageIsNotProvided() {
+
+        boolean shouldNotQuit = biblioteca.shouldQuit("foo");
+
+        assertFalse(shouldNotQuit);
     }
 }

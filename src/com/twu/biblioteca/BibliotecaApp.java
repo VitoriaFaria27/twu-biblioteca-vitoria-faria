@@ -11,23 +11,40 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
 
+        Biblioteca biblioteca = buildBiblioteca();
+
+        interactWithUser(biblioteca);
+    }
+
+    private static Biblioteca buildBiblioteca() {
         List<Book> books = new ArrayList<>();
 
         books.add(new Book("Odisseia", "foo", 1993));
         books.add(new Book("Sofocles", "bar", 1997));
 
-        Biblioteca biblioteca = new Biblioteca(books);
+        return new Biblioteca(books);
+    }
+
+    private static void interactWithUser(Biblioteca biblioteca) {
+        boolean shouldQuit = false;
 
         System.out.println(biblioteca.getWelcomeMessage());
 
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Please enter a command from the following menu:\n");
-            System.out.println(biblioteca.getMenu());
+            while (!shouldQuit){
 
-            String command = scanner.nextLine();
+                System.out.println("Please enter a command from the following menu:\n");
+                System.out.println(biblioteca.getMenu());
 
-            System.out.print(biblioteca.getOutputFromCommand(command));
+                String command = scanner.nextLine();
+
+                shouldQuit = biblioteca.shouldQuit(command);
+
+                if(!shouldQuit){
+                    System.out.println(biblioteca.getOutputFromCommand(command));
+                }
+
+            }
         }
-
     }
 }

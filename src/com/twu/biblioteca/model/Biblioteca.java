@@ -8,6 +8,7 @@ public class Biblioteca {
     private static final String LIST_HEADER = "Name\tAuthor\tYear\n";
     private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
     private static final String LIST_OF_BOOKS = "List of books";
+    private static final String QUIT = "Quit";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -37,7 +38,7 @@ public class Biblioteca {
 
     public String getOutputFromCommand(String command) {
 
-        if (command.equals(LIST_OF_BOOKS)){
+        if (LIST_OF_BOOKS.equals(command)){
             return listBooksInfo();
         }
 
@@ -45,6 +46,10 @@ public class Biblioteca {
     }
 
     public String getMenu() {
-        return LIST_OF_BOOKS;
+        return LIST_OF_BOOKS + "\t" +QUIT;
+    }
+
+    public boolean shouldQuit(String command) {
+        return QUIT.equals(command);
     }
 }
