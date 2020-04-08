@@ -16,6 +16,7 @@ public class BibliotecaTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
     private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
+    private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
     Biblioteca biblioteca;
 
     @Before
@@ -128,5 +129,13 @@ public class BibliotecaTest {
         String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
 
         assertThat(outputForUser, is(ENJOY_THE_BOOK));
+    }
+
+    @Test
+    public void checkOutCommandShouldReturnNotAvailableMessage() {
+
+        String outputForUser = biblioteca.runUserCommand("Checkout foo");
+
+        assertThat(outputForUser, is(BOOK_NOT_AVAILABLE));
     }
 }

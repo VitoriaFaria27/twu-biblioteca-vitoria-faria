@@ -11,6 +11,7 @@ public class Biblioteca {
     private static final String QUIT = "Quit";
     private static final String CHECKOUT = "Checkout";
     private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
+    private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -45,15 +46,23 @@ public class Biblioteca {
         }
 
         if (command.contains(" ") && command.split(" ")[0].equals(CHECKOUT)){
-
-            String bookName = command.split(" ")[1];
-            Book book = this.findBookByName(bookName);
-            book.checkOut();
-
-            return ENJOY_THE_BOOK;
+            return runCheckOutCommand(command);
         }
 
         else return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runCheckOutCommand(String command) {
+        String bookName = command.split(" ")[1];
+        Book book = this.findBookByName(bookName);
+
+        if(book == null){
+            return BOOK_NOT_AVAILABLE;
+        }
+
+        book.checkOut();
+
+        return ENJOY_THE_BOOK;
     }
 
     public String getMenu() {
