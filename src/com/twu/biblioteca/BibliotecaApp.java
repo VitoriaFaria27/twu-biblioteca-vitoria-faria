@@ -5,6 +5,7 @@ import com.twu.biblioteca.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class BibliotecaApp {
 
@@ -18,6 +19,15 @@ public class BibliotecaApp {
         Biblioteca biblioteca = new Biblioteca(books);
 
         System.out.println(biblioteca.getWelcomeMessage());
-        System.out.print(biblioteca.listBookNames());
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Please enter a command from the following menu:\n");
+            System.out.println(biblioteca.getMenu());
+
+            String command = scanner.nextLine();
+
+            System.out.print(biblioteca.getOutputFromCommand(command));
+        }
+
     }
 }

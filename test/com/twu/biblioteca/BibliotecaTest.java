@@ -15,6 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class BibliotecaTest {
 
+    public static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
     Biblioteca biblioteca;
 
     @Before
@@ -53,9 +54,9 @@ public class BibliotecaTest {
     @Test
     public void bibliotecaCanlistBooks () {
 
-        String books = biblioteca.listBookNames();
+        String books = biblioteca.listBooksInfo();
 
-        assertThat(books, is("Odisseia\tfoo\t1993\nSofocles\tbar\t1997\n"));
+        assertThat(books, is(LIST_OF_BOOKS_INFO));
     }
 
     @Test
@@ -64,5 +65,21 @@ public class BibliotecaTest {
         Book book = biblioteca.getBooks().get(0);
 
         assertThat(book.getInfo(), is("Odisseia\tfoo\t1993\n"));
+    }
+
+    @Test
+    public void commandShouldReturnListOfBooks() {
+
+        String outputForUser = biblioteca.getOutputFromCommand("List of books");
+
+        assertThat(outputForUser, is(LIST_OF_BOOKS_INFO));
+    }
+
+    @Test
+    public void shouldreturnMenu() {
+
+        String menu = biblioteca.getMenu();
+
+        assertThat(menu , is("List of books"));
     }
 }
