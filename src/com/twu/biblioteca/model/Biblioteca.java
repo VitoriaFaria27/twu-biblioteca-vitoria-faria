@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Biblioteca {
 
-    private static final String BOOK_LIST_HEADER = "Name\tAuthor\tYear\n";
-    private static final String MOVIE_LIST_HEADER = "Name\tYear\tDirector\tRating\n";
+    private static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
+    private static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";
     private static final String LIST_OF_BOOKS = "List of books";
     private static final String LIST_OF_MOVIES = "List of movies";
     private static final String QUIT = "Quit";
@@ -120,7 +120,7 @@ public class Biblioteca {
     }
 
     public String getMenu() {
-        return LIST_OF_BOOKS + "\t" + LIST_OF_MOVIES + "\t"+ CHECKOUT + "\t" + RETURN + "\t" + QUIT;
+        return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t"+ CHECKOUT + "\t\t" + RETURN + "\t\t" + QUIT;
     }
 
     public boolean shouldQuit(String command) {

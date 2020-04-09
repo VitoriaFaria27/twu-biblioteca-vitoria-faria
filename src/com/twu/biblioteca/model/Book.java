@@ -15,6 +15,6 @@ public class Book extends LibraryMedia {
         if(super.checkedOut){
             return "";
         }
-        return super.name + "\t" + this.author + "\t" + super.year + "\n";
+        return super.name + "\t\t" + this.author + "\t\t" + super.year + "\n";
     }
 }
