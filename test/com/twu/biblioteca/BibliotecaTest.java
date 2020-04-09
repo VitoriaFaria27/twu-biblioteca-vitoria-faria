@@ -18,6 +18,7 @@ public class BibliotecaTest {
     private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
     private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
+    private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
     private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\tAuthor\tYear\nSofocles\tbar\t1997\n";
     Biblioteca biblioteca;
 
@@ -170,5 +171,24 @@ public class BibliotecaTest {
         String outputForUser = biblioteca.runUserCommand("Return Odisseia");
 
         assertThat(outputForUser, is(SUCCESSFUL_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void returnCommandShouldReturnUnsuccessfulMessage() {
+
+        String outputForUser = biblioteca.runUserCommand("Return foo");
+
+        assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void returnCommandShouldReturnUnsuccessfulMMessageIfAlreadyReturned() {
+
+        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Return Odisseia");
+
+        String outputForUser = biblioteca.runUserCommand("Return Odisseia");
+
+        assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
     }
 }

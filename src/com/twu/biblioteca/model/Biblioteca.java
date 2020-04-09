@@ -4,16 +4,19 @@ import java.util.List;
 
 public class Biblioteca {
 
-    private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     private static final String LIST_HEADER = "Name\tAuthor\tYear\n";
-    private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
     private static final String LIST_OF_BOOKS = "List of books";
     private static final String QUIT = "Quit";
     private static final String CHECKOUT = "Checkout";
+    private static final String RETURN = "Return";
+
+    private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+    private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
     private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
-    private static final String RETURN = "Return";
     private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
+    private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
+
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -74,7 +77,7 @@ public class Biblioteca {
         Book book = this.findBookByName(bookName);
 
         if(book == null || !book.isCheckedOut()){
-            return UNSUCCESSFUL_CHECKOUT_MESSAGE;
+            return UNSUCCESSFUL_RETURN_MESSAGE;
         }
 
         book.checkIn();
