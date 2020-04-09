@@ -18,6 +18,10 @@ public class Book {
         return name;
     }
 
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
     public Object getInfo() {
         if(this.checkedOut){
             return "";

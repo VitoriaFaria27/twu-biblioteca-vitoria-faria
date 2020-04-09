@@ -10,9 +10,10 @@ public class Biblioteca {
     private static final String LIST_OF_BOOKS = "List of books";
     private static final String QUIT = "Quit";
     private static final String CHECKOUT = "Checkout";
-    private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
-    private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
+    private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
+    private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
     private static final String RETURN = "Return";
+    private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -72,25 +73,25 @@ public class Biblioteca {
     private String runReturnCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
-        if(book == null){
-            return BOOK_NOT_AVAILABLE;
+        if(book == null || !book.isCheckedOut()){
+            return UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
 
         book.checkIn();
 
-        return ENJOY_THE_BOOK;
+        return SUCCESSFUL_RETURN_MESSAGE;
     }
 
     private String runCheckOutCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
-        if(book == null){
-            return BOOK_NOT_AVAILABLE;
+        if(book == null || book.isCheckedOut()){
+            return UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
 
         book.checkOut();
 
-        return ENJOY_THE_BOOK;
+        return SUCCESSFUL_CHECKOUT_MESSAGE;
     }
 
     public String getMenu() {

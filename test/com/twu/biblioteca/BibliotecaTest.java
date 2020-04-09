@@ -15,8 +15,9 @@ import static org.junit.Assert.*;
 public class BibliotecaTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
-    private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
-    private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
+    private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
+    private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
+    private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
     private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\tAuthor\tYear\nSofocles\tbar\t1997\n";
     Biblioteca biblioteca;
 
@@ -129,7 +130,7 @@ public class BibliotecaTest {
 
         String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
 
-        assertThat(outputForUser, is(ENJOY_THE_BOOK));
+        assertThat(outputForUser, is(SUCCESSFUL_CHECKOUT_MESSAGE));
     }
 
     @Test
@@ -137,7 +138,17 @@ public class BibliotecaTest {
 
         String outputForUser = biblioteca.runUserCommand("Checkout foo");
 
-        assertThat(outputForUser, is(BOOK_NOT_AVAILABLE));
+        assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
+    }
+
+    @Test
+    public void checkOutCommandShouldReturnNotAvailableMessageIfAlreadyCheckedOut() {
+
+        biblioteca.runUserCommand("Checkout Odisseia");
+
+        String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
+
+        assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
     }
 
     @Test
@@ -149,5 +160,15 @@ public class BibliotecaTest {
         biblioteca.runUserCommand("Return Odisseia");
 
         assertThat(biblioteca.listBooksInfo(), is(LIST_OF_BOOKS_INFO));
+    }
+
+    @Test
+    public void returnCommandShouldReturnMessage() {
+
+        biblioteca.runUserCommand("Checkout Odisseia");
+
+        String outputForUser = biblioteca.runUserCommand("Return Odisseia");
+
+        assertThat(outputForUser, is(SUCCESSFUL_RETURN_MESSAGE));
     }
 }
