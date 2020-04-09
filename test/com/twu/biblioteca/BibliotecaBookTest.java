@@ -76,7 +76,7 @@ public class BibliotecaBookTest {
 
     @Test
     public void checkedOutBookIsNotListedAnymore() {
-        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Checkout book Odisseia");
 
         assertThat(biblioteca.listBooksInfo(), is(BOOK_LIST_WITHOUT_ODISSEIA));
     }
@@ -92,7 +92,7 @@ public class BibliotecaBookTest {
     @Test
     public void checkOutCommandShouldReturnMessage() {
 
-        String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
+        String outputForUser = biblioteca.runUserCommand("Checkout book Odisseia");
 
         assertThat(outputForUser, is(SUCCESSFUL_CHECKOUT_MESSAGE));
     }
@@ -100,7 +100,7 @@ public class BibliotecaBookTest {
     @Test
     public void checkOutCommandShouldReturnNotAvailableMessage() {
 
-        String outputForUser = biblioteca.runUserCommand("Checkout foo");
+        String outputForUser = biblioteca.runUserCommand("Checkout book foo");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
     }
@@ -108,16 +108,16 @@ public class BibliotecaBookTest {
     @Test
     public void checkOutCommandShouldReturnNotAvailableMessageIfAlreadyCheckedOut() {
 
-        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Checkout book Odisseia");
 
-        String outputForUser = biblioteca.runUserCommand("Checkout Odisseia");
+        String outputForUser = biblioteca.runUserCommand("Checkout book Odisseia");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
     }
 
     @Test
     public void returnedBookIsIsListedAgain() {
-        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Checkout book Odisseia");
 
         assertThat(biblioteca.listBooksInfo(), is(BOOK_LIST_WITHOUT_ODISSEIA));
 
@@ -129,7 +129,7 @@ public class BibliotecaBookTest {
     @Test
     public void returnCommandShouldReturnMessage() {
 
-        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Checkout book Odisseia");
 
         String outputForUser = biblioteca.runUserCommand("Return Odisseia");
 
@@ -147,7 +147,7 @@ public class BibliotecaBookTest {
     @Test
     public void returnCommandShouldReturnUnsuccessfulMMessageIfAlreadyReturned() {
 
-        biblioteca.runUserCommand("Checkout Odisseia");
+        biblioteca.runUserCommand("Checkout book Odisseia");
         biblioteca.runUserCommand("Return Odisseia");
 
         String outputForUser = biblioteca.runUserCommand("Return Odisseia");

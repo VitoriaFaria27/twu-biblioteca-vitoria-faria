@@ -20,6 +20,8 @@ public class Biblioteca {
     private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
     private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
     private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
+    private static final String SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Thank you! Enjoy the movie";
+    private static final String UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Sorry, that movie is not available";
 
     private List<Book> books;
     private List<Movie> movies;
@@ -73,23 +75,26 @@ public class Biblioteca {
         }
 
         if (command.contains(" ")) {
-            return runSpecificBookCommand(command);
+            return runSpecificMediaCommand(command);
         }
 
         return INVALID_OPTION_MESSAGE;
     }
 
-    private String runSpecificBookCommand(String command) {
+    private String runSpecificMediaCommand(String command) {
         String[] splitCommand = command.split(" ");
         String rootCommand = splitCommand[0];
-        String bookName = splitCommand[1];
 
         if (CHECKOUT.equals(rootCommand)){
-            return runCheckOutCommand(bookName);
+            String mediaType = splitCommand[1];
+            String mediaName = command.replace(CHECKOUT + " " + mediaType + " ", "");
+
+            return runCheckOutCommand(mediaType, mediaName);
         }
 
         if (RETURN.equals(rootCommand)){
-            return runReturnCommand(bookName);
+            String mediaName = command.replace(RETURN + " ", "");
+            return runReturnCommand(mediaName);
         }
 
         return INVALID_OPTION_MESSAGE;
@@ -107,7 +112,19 @@ public class Biblioteca {
         return SUCCESSFUL_RETURN_MESSAGE;
     }
 
-    private String runCheckOutCommand(String bookName) {
+    private String runCheckOutCommand(String mediaType, String mediaName) {
+        if ("book".equals(mediaType)){
+            return runCheckOutBookCommand(mediaName);
+        }
+
+        if ("movie".equals(mediaType)){
+            return runCheckOutMovieCommand(mediaName);
+        }
+
+        return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runCheckOutBookCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
         if(book == null || book.isCheckedOut()){
@@ -119,6 +136,18 @@ public class Biblioteca {
         return SUCCESSFUL_CHECKOUT_MESSAGE;
     }
 
+    private String runCheckOutMovieCommand(String name) {
+        Movie movie = this.findMovieByName(name);
+
+        if(movie == null || movie.isCheckedOut()){
+            return UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
+        }
+
+        movie.checkOut();
+
+        return SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
+    }
+
     public String getMenu() {
         return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t"+ CHECKOUT + "\t\t" + RETURN + "\t\t" + QUIT;
     }
@@ -128,6 +157,14 @@ public class Biblioteca {
     }
 
     public Book findBookByName(String name) {
-        return books.stream().filter(book -> name.equals(book.getName())).findFirst().orElse(null);
+        return (Book) findByName(books, name);
+    }
+
+    public Movie findMovieByName(String name) {
+        return (Movie) findByName(movies, name);
+    }
+
+    public LibraryMedia findByName(List<? extends LibraryMedia> list, String name) {
+        return list.stream().filter(media -> name.equals(media.getName())).findFirst().orElse(null);
     }
 }
