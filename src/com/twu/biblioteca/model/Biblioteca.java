@@ -9,6 +9,7 @@ public class Biblioteca {
     private static final String BOOK_LIST_HEADER = "Name\tAuthor\tYear\n";
     private static final String MOVIE_LIST_HEADER = "Name\tYear\tDirector\tRating\n";
     private static final String LIST_OF_BOOKS = "List of books";
+    private static final String LIST_OF_MOVIES = "List of movies";
     private static final String QUIT = "Quit";
     private static final String CHECKOUT = "Checkout";
     private static final String RETURN = "Return";
@@ -67,6 +68,10 @@ public class Biblioteca {
             return listBooksInfo();
         }
 
+        if (LIST_OF_MOVIES.equals(command)){
+            return listMoviesInfo();
+        }
+
         if (command.contains(" ")) {
             return runSpecificBookCommand(command);
         }
@@ -115,7 +120,7 @@ public class Biblioteca {
     }
 
     public String getMenu() {
-        return LIST_OF_BOOKS + "\t" + CHECKOUT + "\t" + RETURN + "\t" + QUIT;
+        return LIST_OF_BOOKS + "\t" + LIST_OF_MOVIES + "\t"+ CHECKOUT + "\t" + RETURN + "\t" + QUIT;
     }
 
     public boolean shouldQuit(String command) {

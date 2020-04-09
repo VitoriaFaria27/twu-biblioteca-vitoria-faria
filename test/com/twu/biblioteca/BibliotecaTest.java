@@ -91,7 +91,7 @@ public class BibliotecaTest {
 
         String menu = biblioteca.getMenu();
 
-        assertThat(menu , is("List of books\tCheckout\tReturn\tQuit"));
+        assertThat(menu , is("List of books\tList of movies\tCheckout\tReturn\tQuit"));
     }
 
     @Test
@@ -219,5 +219,21 @@ public class BibliotecaTest {
         String movies = biblioteca.listMoviesInfo();
 
         assertThat(movies, is(LIST_OF_MOVIES_INFO));
+    }
+
+    @Test
+    public void movieCanReturnInfo (){
+
+        Movie movie = biblioteca.getMovies().get(0);
+
+        assertThat(movie.getInfo(), is("Star Wars\t1977\tGeorge Lucas\t9\n"));
+    }
+
+    @Test
+    public void commandShouldReturnListOfmovies() {
+
+        String outputForUser = biblioteca.runUserCommand("List of movies");
+
+        assertThat(outputForUser, is(LIST_OF_MOVIES_INFO));
     }
 }
