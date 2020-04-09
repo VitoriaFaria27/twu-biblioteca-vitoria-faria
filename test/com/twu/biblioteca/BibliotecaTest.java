@@ -17,6 +17,7 @@ public class BibliotecaTest {
     private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
     private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
     private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
+    private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\tAuthor\tYear\nSofocles\tbar\t1997\n";
     Biblioteca biblioteca;
 
     @Before
@@ -81,7 +82,7 @@ public class BibliotecaTest {
 
         String menu = biblioteca.getMenu();
 
-        assertThat(menu , is("List of books\tCheckout\tQuit"));
+        assertThat(menu , is("List of books\tCheckout\tReturn\tQuit"));
     }
 
     @Test
@@ -112,7 +113,7 @@ public class BibliotecaTest {
     public void checkedOutBookIsNotListedAnymore() {
         biblioteca.runUserCommand("Checkout Odisseia");
 
-        assertThat(biblioteca.listBooksInfo(), is("Name\tAuthor\tYear\nSofocles\tbar\t1997\n"));
+        assertThat(biblioteca.listBooksInfo(), is(BOOK_LIST_WITHOUT_ODISSEIA));
     }
 
     @Test
@@ -137,5 +138,16 @@ public class BibliotecaTest {
         String outputForUser = biblioteca.runUserCommand("Checkout foo");
 
         assertThat(outputForUser, is(BOOK_NOT_AVAILABLE));
+    }
+
+    @Test
+    public void returnedBookIsIsListedAgain() {
+        biblioteca.runUserCommand("Checkout Odisseia");
+
+        assertThat(biblioteca.listBooksInfo(), is(BOOK_LIST_WITHOUT_ODISSEIA));
+
+        biblioteca.runUserCommand("Return Odisseia");
+
+        assertThat(biblioteca.listBooksInfo(), is(LIST_OF_BOOKS_INFO));
     }
 }

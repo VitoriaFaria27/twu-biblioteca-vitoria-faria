@@ -28,4 +28,8 @@ public class Book {
     public void checkOut() {
         this.checkedOut = true;
     }
+
+    public void checkIn() {
+        this.checkedOut = false;
+    }
 }

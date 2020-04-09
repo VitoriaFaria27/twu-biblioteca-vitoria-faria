@@ -12,6 +12,7 @@ public class Biblioteca {
     private static final String CHECKOUT = "Checkout";
     private static final String ENJOY_THE_BOOK = "Thank you! Enjoy the book";
     private static final String BOOK_NOT_AVAILABLE = "Sorry, that book is not available";
+    private static final String RETURN = "Return";
     private List<Book> books;
 
     public Biblioteca(List<Book> books) {
@@ -45,15 +46,42 @@ public class Biblioteca {
             return listBooksInfo();
         }
 
-        if (command.contains(" ") && command.split(" ")[0].equals(CHECKOUT)){
-            return runCheckOutCommand(command);
+        if (command.contains(" ")) {
+            return runSpecificBookCommand(command);
         }
 
-        else return INVALID_OPTION_MESSAGE;
+        return INVALID_OPTION_MESSAGE;
     }
 
-    private String runCheckOutCommand(String command) {
-        String bookName = command.split(" ")[1];
+    private String runSpecificBookCommand(String command) {
+        String[] splitCommand = command.split(" ");
+        String rootCommand = splitCommand[0];
+        String bookName = splitCommand[1];
+
+        if (CHECKOUT.equals(rootCommand)){
+            return runCheckOutCommand(bookName);
+        }
+
+        if (RETURN.equals(rootCommand)){
+            return runReturnCommand(bookName);
+        }
+
+        return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runReturnCommand(String bookName) {
+        Book book = this.findBookByName(bookName);
+
+        if(book == null){
+            return BOOK_NOT_AVAILABLE;
+        }
+
+        book.checkIn();
+
+        return ENJOY_THE_BOOK;
+    }
+
+    private String runCheckOutCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
         if(book == null){
@@ -66,7 +94,7 @@ public class Biblioteca {
     }
 
     public String getMenu() {
-        return LIST_OF_BOOKS + "\t" + CHECKOUT + "\t" + QUIT;
+        return LIST_OF_BOOKS + "\t" + CHECKOUT + "\t" + RETURN + "\t" + QUIT;
     }
 
     public boolean shouldQuit(String command) {
