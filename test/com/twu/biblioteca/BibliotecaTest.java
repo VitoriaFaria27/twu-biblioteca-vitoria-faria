@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Biblioteca;
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import static org.junit.Assert.*;
 public class BibliotecaTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\tAuthor\tYear\nOdisseia\tfoo\t1993\nSofocles\tbar\t1997\n";
+    private static final String LIST_OF_MOVIES_INFO = "Name\tYear\tDirector\tRating\nStar Wars\t1977\tGeorge Lucas\t9\nLego Movie\t2014\tSome Dude\t8\n";
     private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
     private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
@@ -30,7 +32,12 @@ public class BibliotecaTest {
         books.add(new Book("Odisseia", "foo", 1993));
         books.add(new Book("Sofocles", "bar", 1997));
 
-        biblioteca = new Biblioteca(books);
+        List<Movie> movies = new ArrayList<>();
+
+        movies.add(new Movie("Star Wars", 1977, "George Lucas", 9));
+        movies.add(new Movie("Lego Movie", 2014, "Some Dude", 8));
+
+        biblioteca = new Biblioteca(books, movies);
     }
 
     @Test
@@ -190,5 +197,27 @@ public class BibliotecaTest {
         String outputForUser = biblioteca.runUserCommand("Return Odisseia");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void movieListIsFilled () {
+        List<Movie> movies = biblioteca.getMovies();
+
+        assertThat(movies.size(), is(2));
+    }
+
+    @Test
+    public void movieListHasRightContent () {
+        List<Movie> movies = biblioteca.getMovies();
+
+        assertThat(movies.get(0).getName(), is("Star Wars"));
+    }
+
+    @Test
+    public void bibliotecaCanlistMovies () {
+
+        String movies = biblioteca.listMoviesInfo();
+
+        assertThat(movies, is(LIST_OF_MOVIES_INFO));
     }
 }

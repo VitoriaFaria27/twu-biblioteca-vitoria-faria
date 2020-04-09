@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Biblioteca;
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,12 @@ public class BibliotecaApp {
         books.add(new Book("Odisseia", "foo", 1993));
         books.add(new Book("Sofocles", "bar", 1997));
 
-        return new Biblioteca(books);
+        List<Movie> movies = new ArrayList<>();
+
+        movies.add(new Movie("Star Wars", 1977, "George Lucas", 9));
+        movies.add(new Movie("Lego Movie", 2014, "Some Dude", 8));
+
+        return new Biblioteca(books, movies);
     }
 
     private static void interactWithUser(Biblioteca biblioteca) {

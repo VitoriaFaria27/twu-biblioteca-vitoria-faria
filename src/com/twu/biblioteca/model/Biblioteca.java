@@ -1,10 +1,13 @@
 package com.twu.biblioteca.model;
 
+import com.twu.biblioteca.Abstract.LibraryMedia;
+
 import java.util.List;
 
 public class Biblioteca {
 
-    private static final String LIST_HEADER = "Name\tAuthor\tYear\n";
+    private static final String BOOK_LIST_HEADER = "Name\tAuthor\tYear\n";
+    private static final String MOVIE_LIST_HEADER = "Name\tYear\tDirector\tRating\n";
     private static final String LIST_OF_BOOKS = "List of books";
     private static final String QUIT = "Quit";
     private static final String CHECKOUT = "Checkout";
@@ -18,13 +21,19 @@ public class Biblioteca {
     private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
 
     private List<Book> books;
+    private List<Movie> movies;
 
-    public Biblioteca(List<Book> books) {
+    public Biblioteca(List<Book> books, List<Movie> movies) {
         this.books = books;
+        this.movies = movies;
     }
 
     public List<Book> getBooks() {
         return this.books;
+    }
+
+    public List<Movie> getMovies() {
+        return this.movies;
     }
 
     public String getWelcomeMessage(){
@@ -33,12 +42,20 @@ public class Biblioteca {
 
     public String listBooksInfo() {
 
+        return listMediasInfo(BOOK_LIST_HEADER, this.books);
+    }
+
+    public String listMoviesInfo() {
+
+        return listMediasInfo(MOVIE_LIST_HEADER, this.movies);
+    }
+
+    private String listMediasInfo(String header, List<? extends LibraryMedia> medias) {
         StringBuilder message = new StringBuilder();
+        message.append(header);
 
-        message.append(LIST_HEADER);
-
-        for(Book book : books){
-            message.append(book.getInfo());
+        for(LibraryMedia media : medias){
+            message.append(media.getInfo());
         }
 
         return message.toString();
