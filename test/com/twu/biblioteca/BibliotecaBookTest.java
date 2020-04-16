@@ -10,16 +10,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.twu.biblioteca.Messages.Messages.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class BibliotecaBookTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\t\tAuthor\t\tYear\nOdisseia\t\tfoo\t\t1993\nSofocles\t\tbar\t\t1997\n";
-    private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
-    private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
-    private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
-    private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
     private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\t\tAuthor\t\tYear\nSofocles\t\tbar\t\t1997\n";
     Biblioteca biblioteca;
 
@@ -153,5 +150,15 @@ public class BibliotecaBookTest {
         String outputForUser = biblioteca.runUserCommand("Return Odisseia");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void checkedOutBookShouldHoldTheRenterInfo() {
+
+        Book book = biblioteca.getBooks().get(0);
+
+        book.checkOut("123-4567");
+
+        assertThat(book.getRenter(), is ("123-4567"));
     }
 }

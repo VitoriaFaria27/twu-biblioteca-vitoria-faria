@@ -1,8 +1,14 @@
 package com.twu.biblioteca.model;
 
 import com.twu.biblioteca.Abstract.LibraryMedia;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 
+import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.sun.tools.internal.xjc.reader.Ring.add;
+import static com.twu.biblioteca.Messages.Messages.*;
 
 public class Biblioteca {
 
@@ -14,17 +20,11 @@ public class Biblioteca {
     private static final String CHECKOUT = "Checkout";
     private static final String RETURN = "Return";
 
-    private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
-    private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
-    private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that book is not available";
-    private static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the book";
-    private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
-    private static final String SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Thank you! Enjoy the movie";
-    private static final String UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Sorry, that movie is not available";
-
     private List<Book> books;
     private List<Movie> movies;
+    private User loggedUser;
+
+    private ArrayList<User> validUsers = new ArrayList<User>(){{add(new User("123-4567", "foobar"));}};
 
     public Biblioteca(List<Book> books, List<Movie> movies) {
         this.books = books;
@@ -37,6 +37,10 @@ public class Biblioteca {
 
     public List<Movie> getMovies() {
         return this.movies;
+    }
+
+    public User getLoggedUser() {
+        return loggedUser;
     }
 
     public String getWelcomeMessage(){
@@ -66,6 +70,10 @@ public class Biblioteca {
 
     public String runUserCommand(String command) {
 
+        if(command.matches("^Login.*")){
+            return runLoginCommand(command);
+        }
+
         if (LIST_OF_BOOKS.equals(command)){
             return listBooksInfo();
         }
@@ -79,6 +87,23 @@ public class Biblioteca {
         }
 
         return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runLoginCommand(String command) {
+        String[] splitCommand = command.split(" ");
+
+        if(splitCommand.length != 3){
+            return INVALID_OPTION_MESSAGE;
+        }
+
+        String libraryNumber = splitCommand[1];
+        String password = splitCommand[2];
+
+        if(login(libraryNumber, password)) {
+            return SUCCESSFUL_LOGIN_MESSAGE;
+        }
+
+        return UNSUCCESSFUL_LOGIN_MESSAGE;
     }
 
     private String runSpecificMediaCommand(String command) {
@@ -131,7 +156,7 @@ public class Biblioteca {
             return UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
 
-        book.checkOut();
+        book.checkOut("123-4567");
 
         return SUCCESSFUL_CHECKOUT_MESSAGE;
     }
@@ -143,7 +168,7 @@ public class Biblioteca {
             return UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
         }
 
-        movie.checkOut();
+        movie.checkOut("123-4567");
 
         return SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
     }
@@ -166,5 +191,21 @@ public class Biblioteca {
 
     public LibraryMedia findByName(List<? extends LibraryMedia> list, String name) {
         return list.stream().filter(media -> name.equals(media.getName())).findFirst().orElse(null);
+    }
+
+    private User findUserByName(String id) {
+        return validUsers.stream().filter(user -> id.equals(user.getLibraryNumber())).findFirst().orElse(null);
+    }
+
+    public boolean login(String libraryNumber, String password) {
+
+        User user = findUserByName(libraryNumber);
+
+        if(user == null || !password.equals(user.getPassword())){
+            return false;
+        }
+
+        this.loggedUser = user;
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.twu.biblioteca.Messages.Messages.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -16,8 +17,6 @@ public class BibliotecaMovieTest {
 
     private static final String LIST_OF_MOVIES_INFO = "Name\t\tYear\t\tDirector\t\tRating\nStar Wars\t\t1977\t\tGeorge Lucas\t\t9\nLego Movie\t\t2014\t\tSome Dude\t\t8\n";
     private static final String LIST_OF_MOVIES_INFO_WITHOUT_STAR_WARS = "Name\t\tYear\t\tDirector\t\tRating\nLego Movie\t\t2014\t\tSome Dude\t\t8\n";
-    private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the movie";
-    private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "Sorry, that movie is not available";
     Biblioteca biblioteca;
 
     @Before
@@ -91,7 +90,7 @@ public class BibliotecaMovieTest {
 
         String outputForUser = biblioteca.runUserCommand("Checkout movie Star Wars");
 
-        assertThat(outputForUser, is(SUCCESSFUL_CHECKOUT_MESSAGE));
+        assertThat(outputForUser, is(SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE));
     }
 
     @Test
@@ -99,7 +98,7 @@ public class BibliotecaMovieTest {
 
         String outputForUser = biblioteca.runUserCommand("Checkout movie foo");
 
-        assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
+        assertThat(outputForUser, is(UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE));
     }
 
     @Test
@@ -109,6 +108,6 @@ public class BibliotecaMovieTest {
 
         String outputForUser = biblioteca.runUserCommand("Checkout movie Star Wars");
 
-        assertThat(outputForUser, is(UNSUCCESSFUL_CHECKOUT_MESSAGE));
+        assertThat(outputForUser, is(UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE));
     }
 }

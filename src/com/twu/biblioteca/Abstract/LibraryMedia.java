@@ -5,6 +5,7 @@ public abstract class LibraryMedia {
     protected String name;
     protected int year;
     protected boolean checkedOut;
+    protected String renter;
 
     public LibraryMedia(String name, int year) {
         this.name = name;
@@ -22,11 +23,16 @@ public abstract class LibraryMedia {
 
     public abstract Object getInfo();
 
-    public void checkOut() {
+    public void checkOut(String renter) {
+        this.renter = renter;
         this.checkedOut = true;
     }
 
     public void checkIn() {
         this.checkedOut = false;
+    }
+
+    public String getRenter(){
+        return this.renter;
     }
 }
