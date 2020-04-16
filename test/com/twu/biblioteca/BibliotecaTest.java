@@ -35,7 +35,27 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldReturnMenu() {
+    public void shouldReturnMenuNotLogedIn() {
+
+        String menu = biblioteca.getMenu();
+
+        assertThat(menu , is("List of books\t\tList of movies\t\tLog In\t\tQuit"));
+    }
+
+    @Test
+    public void shouldReturnMenuLoggedInLibrarian() {
+
+        biblioteca.login("999-9999","barfoo");
+
+        String menu = biblioteca.getMenu();
+
+        assertThat(menu , is("List of books\t\tList of movies\t\tQuit"));
+    }
+
+    @Test
+    public void shouldReturnMenuLoggedInUser() {
+
+        biblioteca.login("123-4567","foobar");
 
         String menu = biblioteca.getMenu();
 

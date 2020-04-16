@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.twu.biblioteca.Messages.Messages.*;
+import static com.twu.biblioteca.Constants.Constants.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 

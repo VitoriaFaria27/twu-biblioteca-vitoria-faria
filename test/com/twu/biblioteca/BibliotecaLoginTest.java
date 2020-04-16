@@ -7,11 +7,9 @@ import com.twu.biblioteca.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.twu.biblioteca.Messages.Messages.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -61,6 +59,14 @@ public class BibliotecaLoginTest {
     public void shouldLoginFromCommandLine() {
 
         String outputForUser = biblioteca.runUserCommand("Login 123-4567 foobar");
+
+        assertThat(outputForUser, is("You have logged in successfully!"));
+    }
+
+    @Test
+    public void shouldLoginFromAsLibrarian() {
+
+        String outputForUser = biblioteca.runUserCommand("Login 999-9999 barfoo");
 
         assertThat(outputForUser, is("You have logged in successfully!"));
     }

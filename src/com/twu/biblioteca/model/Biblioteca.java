@@ -1,30 +1,23 @@
 package com.twu.biblioteca.model;
 
 import com.twu.biblioteca.Abstract.LibraryMedia;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
-import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.sun.tools.internal.xjc.reader.Ring.add;
-import static com.twu.biblioteca.Messages.Messages.*;
+import static com.twu.biblioteca.Constants.Constants.*;
 
 public class Biblioteca {
-
-    private static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
-    private static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";
-    private static final String LIST_OF_BOOKS = "List of books";
-    private static final String LIST_OF_MOVIES = "List of movies";
-    private static final String QUIT = "Quit";
-    private static final String CHECKOUT = "Checkout";
-    private static final String RETURN = "Return";
 
     private List<Book> books;
     private List<Movie> movies;
     private User loggedUser;
 
-    private ArrayList<User> validUsers = new ArrayList<User>(){{add(new User("123-4567", "foobar"));}};
+    private ArrayList<User> validUsers = new ArrayList<User>(){{
+        add(new User("123-4567", "foobar"));
+        add(new User("999-9999", "barfoo", true));
+    }};
 
     public Biblioteca(List<Book> books, List<Movie> movies) {
         this.books = books;
@@ -174,6 +167,12 @@ public class Biblioteca {
     }
 
     public String getMenu() {
+
+        if (loggedUser == null){
+            return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t" + LOG_IN + "\t\t" + QUIT;
+        } else if(loggedUser.isLibrarian()){
+            return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t" + QUIT;
+        }
         return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t"+ CHECKOUT + "\t\t" + RETURN + "\t\t" + QUIT;
     }
 
@@ -193,13 +192,13 @@ public class Biblioteca {
         return list.stream().filter(media -> name.equals(media.getName())).findFirst().orElse(null);
     }
 
-    private User findUserByName(String id) {
-        return validUsers.stream().filter(user -> id.equals(user.getLibraryNumber())).findFirst().orElse(null);
+    private User findUserByLibraryNumber(String libraryNumber) {
+        return validUsers.stream().filter(user -> libraryNumber.equals(user.getLibraryNumber())).findFirst().orElse(null);
     }
 
     public boolean login(String libraryNumber, String password) {
 
-        User user = findUserByName(libraryNumber);
+        User user = findUserByLibraryNumber(libraryNumber);
 
         if(user == null || !password.equals(user.getPassword())){
             return false;
