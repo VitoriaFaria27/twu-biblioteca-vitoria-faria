@@ -49,7 +49,7 @@ public class BibliotecaTest {
 
         String menu = biblioteca.getMenu();
 
-        assertThat(menu , is("List of books\t\tList of movies\t\tLogout\t\tQuit"));
+        assertThat(menu , is("List of books\t\tList of movies\t\tView Renter\t\tLogout\t\tQuit"));
     }
 
     @Test
