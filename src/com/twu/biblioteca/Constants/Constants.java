@@ -17,6 +17,7 @@ public class Constants {
     public static final String UNSUCCESSFUL_LOGOUT_MESSAGE = "You have failed to logout!";
     public static final String BOOK_NOT_CHECKEDOUT_MESSAGE = "This book is not checked out by anyone!";
     public static final String BOOK_NOT_FOUND_MESSAGE = "Book not found!";
+    public static final String YOU_DONT_HAVE_PERMISSION_MESSAGE = "You dont have permission for that action!";
 
     public static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
     public static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";

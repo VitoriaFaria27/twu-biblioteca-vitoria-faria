@@ -91,6 +91,11 @@ public class Biblioteca {
     }
 
     private String runViewRenterCommand(String command) {
+
+        if(!loggedUser.isLibrarian()){
+            return YOU_DONT_HAVE_PERMISSION_MESSAGE;
+        }
+
         String bookName = command.replace(VIEW_RENTER + " ", "");
 
         Book book = findBookByName(bookName);

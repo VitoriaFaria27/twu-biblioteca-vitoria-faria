@@ -166,7 +166,7 @@ public class BibliotecaBookTest {
     }
 
     @Test
-    public void commandShouldReturnListOfCheckedoutBooks() {
+    public void commandShouldReturnBookRenter() {
 
         biblioteca.runUserCommand("Checkout book Odisseia");
         biblioteca.login("999-9999", "barfoo");
@@ -174,5 +174,36 @@ public class BibliotecaBookTest {
         String outputForUser = biblioteca.runUserCommand("View Renter Odisseia");
 
         assertThat(outputForUser, is(CHECKEDOUT_BOOK_RENTER));
+    }
+
+    @Test
+    public void commandShouldReturnNotBookRenterIfNotCheckedOut() {
+
+        biblioteca.login("999-9999", "barfoo");
+
+        String outputForUser = biblioteca.runUserCommand("View Renter Odisseia");
+
+        assertThat(outputForUser, is(BOOK_NOT_CHECKEDOUT_MESSAGE));
+    }
+
+    @Test
+    public void commandShouldReturnBookNotFoundIfTryingToViewNonExistentBook() {
+
+        biblioteca.runUserCommand("Checkout book Odisseia");
+        biblioteca.login("999-9999", "barfoo");
+
+        String outputForUser = biblioteca.runUserCommand("View Renter foo");
+
+        assertThat(outputForUser, is(BOOK_NOT_FOUND_MESSAGE));
+    }
+
+    @Test
+    public void commandShouldNotReturnBookRenterIfUserIsNotLibrarian() {
+
+        biblioteca.runUserCommand("Checkout book Odisseia");
+
+        String outputForUser = biblioteca.runUserCommand("View Renter Odisseia");
+
+        assertThat(outputForUser, is(YOU_DONT_HAVE_PERMISSION_MESSAGE));
     }
 }
