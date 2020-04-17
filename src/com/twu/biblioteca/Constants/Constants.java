@@ -18,9 +18,11 @@ public class Constants {
     public static final String BOOK_NOT_CHECKEDOUT_MESSAGE = "This book is not checked out by anyone!";
     public static final String BOOK_NOT_FOUND_MESSAGE = "Book not found!";
     public static final String YOU_DONT_HAVE_PERMISSION_MESSAGE = "You dont have permission for that action!";
+    public static final String USER_NOT_LOGGED_MESSAGE = "User is not logged in!";
 
     public static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
     public static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";
+    public static final String USER_HEADER = "Name\t\tE-mail\t\tPhone number\n";
     public static final String LIST_OF_BOOKS = "List of books";
     public static final String LIST_OF_MOVIES = "List of movies";
     public static final String QUIT = "Quit";
@@ -31,4 +33,5 @@ public class Constants {
     public static final String MOVIE = "movie";
     public static final String LOGOUT = "Logout";
     public static final String VIEW_RENTER = "View Renter";
+    public static final String SHOW_USER_INFO = "Show User Info";
 }

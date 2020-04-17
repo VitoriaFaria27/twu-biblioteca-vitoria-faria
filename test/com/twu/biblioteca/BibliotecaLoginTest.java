@@ -28,9 +28,7 @@ public class BibliotecaLoginTest {
     @Test
     public void shouldLoginSuccessfully() {
 
-        User user = new User("123-4567", "foobar");
-
-        boolean loginSuccessful = biblioteca.login(user.getLibraryNumber(), user.getPassword());
+        boolean loginSuccessful = biblioteca.login("123-4567", "foobar");
 
         assertTrue(loginSuccessful);
     }
@@ -38,9 +36,7 @@ public class BibliotecaLoginTest {
     @Test
     public void loggedUserShouldBeTheSameAsInput() {
 
-        User user = new User("123-4567", "foobar");
-
-        boolean loginSuccessful = biblioteca.login(user.getLibraryNumber(), user.getPassword());
+        boolean loginSuccessful = biblioteca.login("123-4567", "foobar");
 
         assertThat(biblioteca.getLoggedUser().getLibraryNumber(), is("123-4567"));
     }
@@ -48,9 +44,7 @@ public class BibliotecaLoginTest {
     @Test
     public void shouldFailToLoginAsTheUSerIsNotRegistered() {
 
-        User user = new User("999-4567", "barfoo");
-
-        boolean loginSuccessful = biblioteca.login(user.getLibraryNumber(), user.getPassword());
+        boolean loginSuccessful = biblioteca.login("999-4567", "barfoo");
 
         assertFalse(loginSuccessful);
     }

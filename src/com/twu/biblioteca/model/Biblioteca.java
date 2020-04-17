@@ -15,8 +15,8 @@ public class Biblioteca {
     private User loggedUser;
 
     private ArrayList<User> validUsers = new ArrayList<User>(){{
-        add(new User("123-4567", "foobar"));
-        add(new User("999-9999", "barfoo", true));
+        add(new User("123-4567", "foobar", "Dude", "dude@gmail.com", "5555-5555"));
+        add(new User("999-9999", "barfoo", "Dudette", "dudette@gmail.com", "5555-6666", true));
     }};
 
     public Biblioteca(List<Book> books, List<Movie> movies) {
@@ -62,6 +62,10 @@ public class Biblioteca {
     }
 
     public String runUserCommand(String command) {
+
+        if(SHOW_USER_INFO.equals(command)){
+            return runShowUserInfoCoomand();
+        }
 
         if(command.matches("^View Renter.*")){
             return runViewRenterCommand(command);
@@ -227,6 +231,14 @@ public class Biblioteca {
 
     private boolean validateCheckout(LibraryMedia media) {
         return media == null || media.isCheckedOut() || loggedUser == null || loggedUser.isLibrarian();
+    }
+
+    private String runShowUserInfoCoomand() {
+        if(loggedUser == null){
+            return USER_NOT_LOGGED_MESSAGE;
+        }
+
+        return USER_HEADER + getLoggedUser().getInfo();
     }
 
     public String getMenu() {
