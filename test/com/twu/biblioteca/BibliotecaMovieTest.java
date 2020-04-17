@@ -30,6 +30,7 @@ public class BibliotecaMovieTest {
         movies.add(new Movie("Lego Movie", 2014, "Some Dude", 8));
 
         biblioteca = new Biblioteca(books, movies);
+        biblioteca.login("123-4567","foobar");
     }
 
     @Test

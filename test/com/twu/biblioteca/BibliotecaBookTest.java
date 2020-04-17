@@ -31,6 +31,7 @@ public class BibliotecaBookTest {
         List<Movie> movies = new ArrayList<>();
 
         biblioteca = new Biblioteca(books, movies);
+        biblioteca.login("123-4567","foobar");
     }
 
     @Test
@@ -155,6 +156,7 @@ public class BibliotecaBookTest {
     @Test
     public void checkedOutBookShouldHoldTheRenterInfo() {
 
+        biblioteca.login("123-4567","foobar");
         Book book = biblioteca.getBooks().get(0);
 
         book.checkOut("123-4567");

@@ -180,7 +180,7 @@ public class Biblioteca {
     private String runCheckOutBookCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
-        if(book == null || book.isCheckedOut()){
+        if(validateCheckout(book)){
             return UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
 
@@ -192,13 +192,17 @@ public class Biblioteca {
     private String runCheckOutMovieCommand(String name) {
         Movie movie = this.findMovieByName(name);
 
-        if(movie == null || movie.isCheckedOut()){
+        if(validateCheckout(movie)){
             return UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
         }
 
-        movie.checkOut("123-4567");
+        movie.checkOut(loggedUser.getLibraryNumber());
 
         return SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE;
+    }
+
+    private boolean validateCheckout(LibraryMedia media) {
+        return media == null || media.isCheckedOut() || loggedUser == null || loggedUser.isLibrarian();
     }
 
     public String getMenu() {
