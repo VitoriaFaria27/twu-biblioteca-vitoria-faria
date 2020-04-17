@@ -15,6 +15,8 @@ public class Constants {
     public static final String UNSUCCESSFUL_LOGIN_MESSAGE = "You have failed to login!";
     public static final String SUCCESSFUL_LOGOUT_MESSAGE = "You have logged out successfully!";
     public static final String UNSUCCESSFUL_LOGOUT_MESSAGE = "You have failed to logout!";
+    public static final String BOOK_NOT_CHECKEDOUT_MESSAGE = "This book is not checked out by anyone!";
+    public static final String BOOK_NOT_FOUND_MESSAGE = "Book not found!";
 
     public static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
     public static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";
@@ -27,4 +29,5 @@ public class Constants {
     public static final String BOOK = "book";
     public static final String MOVIE = "movie";
     public static final String LOGOUT = "Logout";
+    public static final String VIEW_RENTER = "View Renter";
 }

@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 public class BibliotecaBookTest {
 
     private static final String LIST_OF_BOOKS_INFO = "Name\t\tAuthor\t\tYear\nOdisseia\t\tfoo\t\t1993\nSofocles\t\tbar\t\t1997\n";
+    private static final String CHECKEDOUT_BOOK_RENTER = "123-4567";
     private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\t\tAuthor\t\tYear\nSofocles\t\tbar\t\t1997\n";
     Biblioteca biblioteca;
 
@@ -162,5 +163,16 @@ public class BibliotecaBookTest {
         book.checkOut("123-4567");
 
         assertThat(book.getRenter(), is ("123-4567"));
+    }
+
+    @Test
+    public void commandShouldReturnListOfCheckedoutBooks() {
+
+        biblioteca.runUserCommand("Checkout book Odisseia");
+        biblioteca.login("999-9999", "barfoo");
+
+        String outputForUser = biblioteca.runUserCommand("View Renter Odisseia");
+
+        assertThat(outputForUser, is(CHECKEDOUT_BOOK_RENTER));
     }
 }

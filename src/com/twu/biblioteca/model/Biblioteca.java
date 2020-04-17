@@ -63,6 +63,10 @@ public class Biblioteca {
 
     public String runUserCommand(String command) {
 
+        if(command.matches("^View Renter.*")){
+            return runViewRenterCommand(command);
+        }
+
         if(command.matches("^Login.*")){
             return runLoginCommand(command);
         }
@@ -84,6 +88,21 @@ public class Biblioteca {
         }
 
         return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runViewRenterCommand(String command) {
+        String bookName = command.replace(VIEW_RENTER + " ", "");
+
+        Book book = findBookByName(bookName);
+        if(book == null){
+            return BOOK_NOT_FOUND_MESSAGE;
+        }
+
+        if(!book.isCheckedOut() || book.getRenter() == null){
+            return BOOK_NOT_CHECKEDOUT_MESSAGE;
+        }
+
+        return book.getRenter();
     }
 
     private String runLogoutCommand(String command) {
@@ -184,7 +203,7 @@ public class Biblioteca {
             return UNSUCCESSFUL_CHECKOUT_MESSAGE;
         }
 
-        book.checkOut("123-4567");
+        book.checkOut(loggedUser.getLibraryNumber());
 
         return SUCCESSFUL_CHECKOUT_MESSAGE;
     }
