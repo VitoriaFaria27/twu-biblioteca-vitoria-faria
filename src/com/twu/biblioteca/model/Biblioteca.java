@@ -246,9 +246,9 @@ public class Biblioteca {
         if (loggedUser == null){
             return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t" + LOG_IN + "\t\t" + QUIT;
         } else if(loggedUser.isLibrarian()){
-            return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t" + VIEW_RENTER + "\t\t" + LOGOUT + "\t\t" + QUIT;
+            return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t" + VIEW_RENTER + "\t\t" + VIEW_USER_INFO + "\t\t" + LOGOUT + "\t\t" + QUIT;
         }
-        return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t"+ CHECKOUT + "\t\t" + RETURN + "\t\t" + LOGOUT + "\t\t" + QUIT;
+        return LIST_OF_BOOKS + "\t\t" + LIST_OF_MOVIES + "\t\t"+ CHECKOUT + "\t\t" + RETURN + "\t\t" + VIEW_USER_INFO + "\t\t" + LOGOUT + "\t\t" + QUIT;
     }
 
     public boolean shouldQuit(String command) {

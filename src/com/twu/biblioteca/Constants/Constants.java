@@ -34,4 +34,5 @@ public class Constants {
     public static final String LOGOUT = "Logout";
     public static final String VIEW_RENTER = "View Renter";
     public static final String SHOW_USER_INFO = "Show User Info";
+    public static final String VIEW_USER_INFO = "View User Info";
 }
