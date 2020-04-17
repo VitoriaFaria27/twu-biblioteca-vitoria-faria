@@ -9,6 +9,8 @@ public class Constants {
     public static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
     public static final String SUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Thank you! Enjoy the movie";
     public static final String UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE = "Sorry, that movie is not available";
+    public static final String SUCCESSFUL_MOVIE_RETURN_MESSAGE = "Thank you for returning the movie";
+    public static final String UNSUCCESSFUL_MOVIE_RETURN_MESSAGE = "That is not a valid movie to return.";
     public static final String SUCCESSFUL_LOGIN_MESSAGE = "You have logged in successfully!";
     public static final String UNSUCCESSFUL_LOGIN_MESSAGE = "You have failed to login!";
 
@@ -20,4 +22,6 @@ public class Constants {
     public static final String CHECKOUT = "Checkout";
     public static final String RETURN = "Return";
     public static final String LOG_IN = "Log In";
+    public static final String BOOK = "book";
+    public static final String MOVIE = "movie";
 }

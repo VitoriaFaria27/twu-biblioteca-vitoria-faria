@@ -102,23 +102,46 @@ public class Biblioteca {
     private String runSpecificMediaCommand(String command) {
         String[] splitCommand = command.split(" ");
         String rootCommand = splitCommand[0];
+        String mediaType = splitCommand[1];
 
         if (CHECKOUT.equals(rootCommand)){
-            String mediaType = splitCommand[1];
             String mediaName = command.replace(CHECKOUT + " " + mediaType + " ", "");
-
             return runCheckOutCommand(mediaType, mediaName);
         }
 
         if (RETURN.equals(rootCommand)){
-            String mediaName = command.replace(RETURN + " ", "");
-            return runReturnCommand(mediaName);
+            String mediaName = command.replace(RETURN + " " + mediaType + " ", "");
+            return runReturnCommand(mediaType, mediaName);
         }
 
         return INVALID_OPTION_MESSAGE;
     }
 
-    private String runReturnCommand(String bookName) {
+    private String runReturnCommand(String mediaType, String mediaName) {
+        if (BOOK.equals(mediaType)){
+            return runReturnBookCommand(mediaName);
+        }
+
+        if (MOVIE.equals(mediaType)){
+            return runReturnMovieCommand(mediaName);
+        }
+
+        return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runReturnMovieCommand(String movieName) {
+        Movie movie = this.findMovieByName(movieName);
+
+        if(movie == null || !movie.isCheckedOut()){
+            return UNSUCCESSFUL_MOVIE_RETURN_MESSAGE;
+        }
+
+        movie.checkIn();
+
+        return SUCCESSFUL_MOVIE_RETURN_MESSAGE;
+    }
+
+    private String runReturnBookCommand(String bookName) {
         Book book = this.findBookByName(bookName);
 
         if(book == null || !book.isCheckedOut()){
@@ -131,11 +154,11 @@ public class Biblioteca {
     }
 
     private String runCheckOutCommand(String mediaType, String mediaName) {
-        if ("book".equals(mediaType)){
+        if (BOOK.equals(mediaType)){
             return runCheckOutBookCommand(mediaName);
         }
 
-        if ("movie".equals(mediaType)){
+        if (MOVIE.equals(mediaType)){
             return runCheckOutMovieCommand(mediaName);
         }
 

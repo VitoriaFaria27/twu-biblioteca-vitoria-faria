@@ -110,4 +110,44 @@ public class BibliotecaMovieTest {
 
         assertThat(outputForUser, is(UNSUCCESSFUL_MOVIE_CHECKOUT_MESSAGE));
     }
+
+    @Test
+    public void returnedMovieIsIsListedAgain() {
+        biblioteca.runUserCommand("Checkout movie Star Wars");
+
+        assertThat(biblioteca.listMoviesInfo(), is(LIST_OF_MOVIES_INFO_WITHOUT_STAR_WARS));
+
+        biblioteca.runUserCommand("Return movie Star Wars");
+
+        assertThat(biblioteca.listMoviesInfo(), is(LIST_OF_MOVIES_INFO));
+    }
+
+    @Test
+    public void returnCommandShouldReturnMessage() {
+
+        biblioteca.runUserCommand("Checkout movie Star Wars");
+
+        String outputForUser = biblioteca.runUserCommand("Return movie Star Wars");
+
+        assertThat(outputForUser, is(SUCCESSFUL_MOVIE_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void returnCommandShouldReturnUnsuccessfulMessage() {
+
+        String outputForUser = biblioteca.runUserCommand("Return movie foo");
+
+        assertThat(outputForUser, is(UNSUCCESSFUL_MOVIE_RETURN_MESSAGE));
+    }
+
+    @Test
+    public void returnCommandShouldReturnUnsuccessfulMMessageIfAlreadyReturned() {
+
+        biblioteca.runUserCommand("Checkout movie Star Wars");
+        biblioteca.runUserCommand("Return movie Star Wars");
+
+        String outputForUser = biblioteca.runUserCommand("Return movie Star Wars");
+
+        assertThat(outputForUser, is(UNSUCCESSFUL_MOVIE_RETURN_MESSAGE));
+    }
 }

@@ -118,7 +118,7 @@ public class BibliotecaBookTest {
 
         assertThat(biblioteca.listBooksInfo(), is(BOOK_LIST_WITHOUT_ODISSEIA));
 
-        biblioteca.runUserCommand("Return Odisseia");
+        biblioteca.runUserCommand("Return book Odisseia");
 
         assertThat(biblioteca.listBooksInfo(), is(LIST_OF_BOOKS_INFO));
     }
@@ -128,7 +128,7 @@ public class BibliotecaBookTest {
 
         biblioteca.runUserCommand("Checkout book Odisseia");
 
-        String outputForUser = biblioteca.runUserCommand("Return Odisseia");
+        String outputForUser = biblioteca.runUserCommand("Return book Odisseia");
 
         assertThat(outputForUser, is(SUCCESSFUL_RETURN_MESSAGE));
     }
@@ -136,7 +136,7 @@ public class BibliotecaBookTest {
     @Test
     public void returnCommandShouldReturnUnsuccessfulMessage() {
 
-        String outputForUser = biblioteca.runUserCommand("Return foo");
+        String outputForUser = biblioteca.runUserCommand("Return book foo");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
     }
@@ -145,9 +145,9 @@ public class BibliotecaBookTest {
     public void returnCommandShouldReturnUnsuccessfulMMessageIfAlreadyReturned() {
 
         biblioteca.runUserCommand("Checkout book Odisseia");
-        biblioteca.runUserCommand("Return Odisseia");
+        biblioteca.runUserCommand("Return book Odisseia");
 
-        String outputForUser = biblioteca.runUserCommand("Return Odisseia");
+        String outputForUser = biblioteca.runUserCommand("Return book Odisseia");
 
         assertThat(outputForUser, is(UNSUCCESSFUL_RETURN_MESSAGE));
     }
