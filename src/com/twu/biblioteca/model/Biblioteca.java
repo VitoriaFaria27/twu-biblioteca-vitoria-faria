@@ -67,6 +67,10 @@ public class Biblioteca {
             return runLoginCommand(command);
         }
 
+        if(LOGOUT.equals(command)){
+            return runLogoutCommand(command);
+        }
+
         if (LIST_OF_BOOKS.equals(command)){
             return listBooksInfo();
         }
@@ -80,6 +84,14 @@ public class Biblioteca {
         }
 
         return INVALID_OPTION_MESSAGE;
+    }
+
+    private String runLogoutCommand(String command) {
+        if (logout()) {
+            return SUCCESSFUL_LOGOUT_MESSAGE;
+        }
+
+        return UNSUCCESSFUL_LOGOUT_MESSAGE;
     }
 
     private String runLoginCommand(String command) {
@@ -228,6 +240,16 @@ public class Biblioteca {
         }
 
         this.loggedUser = user;
+        return true;
+    }
+
+    private boolean logout() {
+
+        if(this.loggedUser == null){
+            return false;
+        }
+
+        this.loggedUser = null;
         return true;
     }
 }

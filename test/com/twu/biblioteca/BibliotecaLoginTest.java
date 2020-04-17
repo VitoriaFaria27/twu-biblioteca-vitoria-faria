@@ -70,4 +70,22 @@ public class BibliotecaLoginTest {
 
         assertThat(outputForUser, is("You have logged in successfully!"));
     }
+
+    @Test
+    public void logOutTest() {
+
+        biblioteca.runUserCommand("Login 123-4567 foobar");
+        String outputForUser = biblioteca.runUserCommand("Logout");
+
+        assertThat(biblioteca.getLoggedUser(), is((User) null));
+    }
+
+    @Test
+    public void logOutMessageTest() {
+
+        biblioteca.runUserCommand("Login 123-4567 foobar");
+        String outputForUser = biblioteca.runUserCommand("Logout");
+
+        assertThat(outputForUser, is("You have logged out successfully!"));
+    }
 }
