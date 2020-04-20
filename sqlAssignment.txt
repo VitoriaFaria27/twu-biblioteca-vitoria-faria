@@ -1,0 +1,86 @@
+SQL assignment
+Vitoria Faria
+
+1. Who checked out the book 'The Hobbit’?
+
+	Anand Beck.
+
+	SELECT m.name
+	from book b
+	join checkout_item c on b.id = c.book_id
+	join member m on c.member_id = m.id
+	where b.title = 'The Hobbit' 
+
+
+2. How many people have not checked out anything?
+
+	39
+
+	SELECT count(m2.id) from member m2 where m2.id not in (
+		SELECT m.id
+		from book b
+		join checkout_item c on b.id = c.book_id
+		join member m on c.member_id = m.id
+	)
+
+3. What books and movies aren't checked out?
+
+	1984|is a book
+	Catcher in the Rye|is a book
+	Domain Driven Design|is a book
+	Fellowship of the Ring|is a book
+	To Kill a Mockingbird|is a book
+	Tom Sawyer|is a book
+	Crouching Tiger, Hidden Dragon|is a movie
+	Lawrence of Arabia|is a movie
+	Office Space|is a movie
+	Thin Red Line|is a movie
+
+	SELECT b2.title, 'is a book' as type from book b2 where b2.id not in (
+		SELECT b.id
+		from book b
+		join checkout_item c on b.id = c.book_id
+		join member m on c.member_id = m.id
+	)
+	UNION
+	SELECT mv2.title, 'is a movie' as type from movie mv2 where mv2.id not in (
+		SELECT mv.id
+		from movie mv
+		join checkout_item c on mv.id = c.movie_id
+		join member m on c.member_id = m.id
+	)
+	order by type
+
+
+4. Add the book 'The Pragmatic Programmer', and add yourself as a member. Check out 'The Pragmatic Programmer'. Use your query from question 1 to verify that you have checked it out. Also, provide the SQL used to update the database.
+
+	INSERT INTO book (title)
+	values ('The Pragmatic Programmer'); 
+
+	INSERT INTO member (name)
+	values ('Vitoria Faria');
+
+	INSERT INTO checkout_item (member_id, book_id)
+	values (
+		(SELECT id from member where name = 'Vitoria Faria'),
+		(SELECT id from book where title = 'The Pragmatic Programmer')
+	);
+
+	SELECT m.name
+	from book b
+	join checkout_item c on b.id = c.book_id
+	join member m on c.member_id = m.id
+	where b.title = 'The Pragmatic Programmer'; 
+
+5. Who has checked out more than 1 item? 
+Tip: Research the GROUP BY syntax.
+
+	Anand Beck.
+
+	SELECT m.name
+	from book b
+	join checkout_item c on b.id = c.book_id
+	join member m on c.member_id = m.id
+	group by c.member_id
+	having count(c.member_id) > 1
+
