@@ -14,7 +14,7 @@ public class Movie extends LibraryMedia {
     }
 
     public Object getInfo() {
-        if(super.checkedOut){
+        if(super.isCheckedOut()){
             return "";
         }
         return super.name + "\t\t" + super.year + "\t\t" + this.director + "\t\t" + ratingToString() + "\n";

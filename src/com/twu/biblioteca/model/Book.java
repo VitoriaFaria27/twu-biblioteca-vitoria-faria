@@ -12,7 +12,7 @@ public class Book extends LibraryMedia {
     }
 
     public Object getInfo() {
-        if(super.checkedOut){
+        if(super.isCheckedOut()){
             return "";
         }
         return super.name + "\t\t" + this.author + "\t\t" + super.year + "\n";
