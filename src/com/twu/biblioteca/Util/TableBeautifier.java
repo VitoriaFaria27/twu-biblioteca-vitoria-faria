@@ -25,16 +25,13 @@ public class TableBeautifier {
     private static Map<Integer, Integer> populateColumnLengths(String[][] table) {
         Map<Integer, Integer> columnLengths = new HashMap<>();
 
-        int index = 0;
-        for( String[] a : table){
-            for( String string : a){
+        for( String[] row : table){
+            for( int index = 0 ; index < row.length; index++){
                 columnLengths.putIfAbsent(index, 0);
-                if (columnLengths.get(index) < a[index].length()) {
-                    columnLengths.put(index, a[index].length());
+                if (columnLengths.get(index) < row[index].length()) {
+                    columnLengths.put(index, row[index].length());
                 }
-                index++;
             }
-            index = 0;
         }
         return columnLengths;
     }
