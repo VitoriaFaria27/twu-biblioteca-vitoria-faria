@@ -13,13 +13,20 @@ public class TableBeautifier {
         columnLengths.forEach((key, value) -> formatString.append("| %").append(value).append("s "));
         formatString.append("|\n");
 
+        return formatTable(table, formatString.toString());
+    }
+
+    private static String formatTable(String[][] table, String formatString) {
+        String trueResult;
+
         StringBuilder result = new StringBuilder();
 
         for(Object[] row : table){
-            result.append(String.format(formatString.toString(), row));
+            result.append(String.format(formatString, row));
         }
 
-        return result.toString();
+        trueResult = result.toString();
+        return trueResult;
     }
 
     private static Map<Integer, Integer> populateColumnLengths(String[][] table) {
