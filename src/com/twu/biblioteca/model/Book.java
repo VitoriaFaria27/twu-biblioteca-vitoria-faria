@@ -13,8 +13,9 @@ public class Book extends LibraryMedia {
 
     public Object getInfo() {
         if(super.isCheckedOut()){
-            return "";
+            return null;
         }
-        return super.name + "\t\t" + this.author + "\t\t" + super.year + "\n";
+
+        return new String[] { super.name, this.author, String.valueOf(super.year) };
     }
 }

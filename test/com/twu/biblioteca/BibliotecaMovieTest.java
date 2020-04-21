@@ -15,8 +15,8 @@ import static org.junit.Assert.*;
 
 public class BibliotecaMovieTest {
 
-    private static final String LIST_OF_MOVIES_INFO = "Name\t\tYear\t\tDirector\t\tRating\nStar Wars\t\t1977\t\tGeorge Lucas\t\t9\nLego Movie\t\t2014\t\tSome Dude\t\t8\n";
-    private static final String LIST_OF_MOVIES_INFO_WITHOUT_STAR_WARS = "Name\t\tYear\t\tDirector\t\tRating\nLego Movie\t\t2014\t\tSome Dude\t\t8\n";
+    private static final String LIST_OF_MOVIES_INFO = "|       Name | Year |     Director | Rating |\n|  Star Wars | 1977 | George Lucas |      9 |\n| Lego Movie | 2014 |    Some Dude |      8 |\n";
+    private static final String LIST_OF_MOVIES_INFO_WITHOUT_STAR_WARS = "|       Name | Year |  Director | Rating |\n| Lego Movie | 2014 | Some Dude |      8 |\n";
     Biblioteca biblioteca;
 
     @Before
@@ -60,7 +60,7 @@ public class BibliotecaMovieTest {
 
         Movie movie = biblioteca.getMovies().get(0);
 
-        assertThat(movie.getInfo(), is("Star Wars\t\t1977\t\tGeorge Lucas\t\t9\n"));
+        assertThat(movie.getInfo(), is(new String[]{"Star Wars", "1977", "George Lucas", "9"}));
     }
 
     @Test

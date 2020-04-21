@@ -1,11 +1,10 @@
 package com.twu.biblioteca.model;
 
 import com.twu.biblioteca.Abstract.LibraryMedia;
+import com.twu.biblioteca.Util.TableBeautifier;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static com.sun.tools.internal.xjc.reader.Ring.add;
 import static com.twu.biblioteca.Constants.Constants.*;
 
 public class Biblioteca {
@@ -50,15 +49,22 @@ public class Biblioteca {
         return listMediasInfo(MOVIE_LIST_HEADER, this.movies);
     }
 
-    private String listMediasInfo(String header, List<? extends LibraryMedia> medias) {
-        StringBuilder message = new StringBuilder();
-        message.append(header);
+    private String listMediasInfo(String[] header, List<? extends LibraryMedia> medias) {
+        List<String[]> list = new ArrayList<>();
+        list.add(header);
 
         for(LibraryMedia media : medias){
-            message.append(media.getInfo());
+
+            String[] info = (String[]) media.getInfo();
+
+            if(info != null){
+                list.add(info);
+            }
         }
 
-        return message.toString();
+        String[][] table = list.toArray(new String[list.size()][header.length]);
+
+        return TableBeautifier.beautifyTable(table);
     }
 
     public String runUserCommand(String command) {

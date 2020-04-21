@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 
 public class BibliotecaBookTest {
 
-    private static final String LIST_OF_BOOKS_INFO = "Name\t\tAuthor\t\tYear\nOdisseia\t\tfoo\t\t1993\nSofocles\t\tbar\t\t1997\n";
+    private static final String LIST_OF_BOOKS_INFO = "|     Name | Author | Year |\n| Odisseia |    foo | 1993 |\n| Sofocles |    bar | 1997 |\n";
     private static final String CHECKEDOUT_BOOK_RENTER = "123-4567";
-    private static final String BOOK_LIST_WITHOUT_ODISSEIA = "Name\t\tAuthor\t\tYear\nSofocles\t\tbar\t\t1997\n";
+    private static final String BOOK_LIST_WITHOUT_ODISSEIA = "|     Name | Author | Year |\n| Sofocles |    bar | 1997 |\n";
     Biblioteca biblioteca;
 
     @Before
@@ -62,7 +62,7 @@ public class BibliotecaBookTest {
 
         Book book = biblioteca.getBooks().get(0);
 
-        assertThat(book.getInfo(), is("Odisseia\t\tfoo\t\t1993\n"));
+        assertThat(book.getInfo(), is(new String[]{"Odisseia", "foo", "1993"}));
     }
 
     @Test

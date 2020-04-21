@@ -20,8 +20,9 @@ public class Constants {
     public static final String YOU_DONT_HAVE_PERMISSION_MESSAGE = "You dont have permission for that action!";
     public static final String USER_NOT_LOGGED_MESSAGE = "User is not logged in!";
 
-    public static final String BOOK_LIST_HEADER = "Name\t\tAuthor\t\tYear\n";
-    public static final String MOVIE_LIST_HEADER = "Name\t\tYear\t\tDirector\t\tRating\n";
+    public static final String[] BOOK_LIST_HEADER =  new String[]{"Name","Author", "Year"};
+    public static final String[] MOVIE_LIST_HEADER = new String[]{"Name","Year","Director","Rating"};
+
     public static final String USER_HEADER = "Name\t\tE-mail\t\tPhone number\n";
     public static final String LIST_OF_BOOKS = "List of books";
     public static final String LIST_OF_MOVIES = "List of movies";
