@@ -9,24 +9,9 @@ public class TableBeautifier {
 
         Map<Integer, Integer> columnLengths = populateColumnLengths(table);
 
-        final StringBuilder formatString = new StringBuilder();
-        columnLengths.forEach((key, value) -> formatString.append("| %").append(value).append("s "));
-        formatString.append("|\n");
+        String formatter = createFormatter(columnLengths);
 
-        return formatTable(table, formatString.toString());
-    }
-
-    private static String formatTable(String[][] table, String formatString) {
-        String trueResult;
-
-        StringBuilder result = new StringBuilder();
-
-        for(Object[] row : table){
-            result.append(String.format(formatString, row));
-        }
-
-        trueResult = result.toString();
-        return trueResult;
+        return formatTable(table, formatter);
     }
 
     private static Map<Integer, Integer> populateColumnLengths(String[][] table) {
@@ -41,5 +26,29 @@ public class TableBeautifier {
             }
         }
         return columnLengths;
+    }
+
+    private static String createFormatter(Map<Integer, Integer> columnLengths) {
+        String formatter;
+
+        final StringBuilder formatString = new StringBuilder();
+        columnLengths.forEach((key, value) -> formatString.append("| %").append(value).append("s "));
+        formatString.append("|\n");
+
+        formatter = formatString.toString();
+        return formatter;
+    }
+
+    private static String formatTable(String[][] table, String formatString) {
+        String trueResult;
+
+        StringBuilder result = new StringBuilder();
+
+        for(Object[] row : table){
+            result.append(String.format(formatString, row));
+        }
+
+        trueResult = result.toString();
+        return trueResult;
     }
 }
