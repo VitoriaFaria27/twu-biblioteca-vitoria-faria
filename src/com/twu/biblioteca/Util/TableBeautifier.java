@@ -29,18 +29,15 @@ public class TableBeautifier {
     }
 
     private static String createFormatter(Map<Integer, Integer> columnLengths) {
-        String formatter;
 
         final StringBuilder formatString = new StringBuilder();
         columnLengths.forEach((key, value) -> formatString.append("| %").append(value).append("s "));
         formatString.append("|\n");
 
-        formatter = formatString.toString();
-        return formatter;
+        return formatString.toString();
     }
 
     private static String formatTable(String[][] table, String formatString) {
-        String trueResult;
 
         StringBuilder result = new StringBuilder();
 
@@ -48,7 +45,6 @@ public class TableBeautifier {
             result.append(String.format(formatString, row));
         }
 
-        trueResult = result.toString();
-        return trueResult;
+        return result.toString();
     }
 }
