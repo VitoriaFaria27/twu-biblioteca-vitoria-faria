@@ -11,4 +11,6 @@ To return a movie type "Return movie nameOfTheMovie".
 
 To login type "Login LibraryNumber Password".
 
-Everything else follows a similar pattern.
+As a librarian, you can view who is renting a book, type "View Renter nomeOfTheBook".
+
+Everything else is either a single command without arguments or follows a similar pattern.
