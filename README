@@ -6,8 +6,8 @@ It works basically like a bash like interface with "Command argument1 argument2"
 
 To checkout a book type "Checkout book nameOfTheBook".
 To checkout a movie type "Checkout movie nameOfTheMovie".
-To return a book type "Checkout book nameOfTheBook".
-To return a movie type "Checkout movie nameOfTheMovie".
+To return a book type "Return book nameOfTheBook".
+To return a movie type "Return movie nameOfTheMovie".
 
 To login type "Login LibraryNumber Password".
 
